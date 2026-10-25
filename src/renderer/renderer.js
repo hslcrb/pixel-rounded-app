@@ -2,7 +2,8 @@
 (() => {
   'use strict';
   const engine = window.PixelRoundedFilters;
-  if (!engine) throw new Error('The pixel filter engine could not be loaded.');
+  const matcher = window.PixelRoundedMatcher;
+  if (!engine || !matcher) throw new Error('The pixel filter and reference matching engines must be loaded.');
   const $ = id => document.getElementById(id);
   const els = {
     frame: $('preview-frame'), stage: $('stage'),
@@ -176,6 +177,7 @@
     originalPreview = ctx.getImageData(0, 0, w, h);
     originalImage = image;
     originalName = name;
+    $('reference-result').textContent = '새 원본 사진 · 참조 사진을 선택할 수 있어요.';
     els.title.textContent = name;
     els.dim.textContent = image.naturalWidth.toLocaleString('ko-KR') + ' × ' + image.naturalHeight.toLocaleString('ko-KR') + ' px  ·  로컬 처리';
     drawPixels(els.before, originalPreview);
@@ -203,6 +205,49 @@
       activeBlobUrl = url;
     } catch (error) { URL.revokeObjectURL(url); throw error; }
   }
+
+  async function matchReferencePhoto(file) {
+    if (!originalPreview) throw new Error('먼저 원본 사진을 열어주세요.');
+    if (!file || !acceptedTypes.includes(file.type)) throw new Error('PNG, JPG, WebP 사진만 비교할 수 있어요.');
+    if (file.size > MAX_FILE) throw new Error('참조 사진은 36MB 이하여야 해요.');
+    const blobURL = URL.createObjectURL(file);
+    setWorking(true, '두 사진의 픽셀을 대조하는 중...');
+    try {
+      const image = await new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error('참조 사진을 열 수 없어요.'));
+        image.src = blobURL;
+      });
+      const expectedRatio = originalImage.naturalWidth / originalImage.naturalHeight;
+      const givenRatio = image.naturalWidth / image.naturalHeight;
+      if (Math.abs(expectedRatio - givenRatio) / expectedRatio > .025) {
+        throw new Error('원본과 참조 사진의 가로세로 비율이 달라요. 같은 장면을 맞춰주세요.');
+      }
+      const scratch = document.createElement('canvas');
+      scratch.width = originalPreview.width;
+      scratch.height = originalPreview.height;
+      const ctx = scratch.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(image, 0, 0, scratch.width, scratch.height);
+      const reference = ctx.getImageData(0, 0, scratch.width, scratch.height);
+      await new Promise(resolve => setTimeout(resolve, 30));
+      const outcome = matcher.fitReference(originalPreview, reference, { maxEdge: 82 });
+      options = outcome.settings;
+      updateSliderUI();
+      updatePresetButtons('');
+      saveHistory();
+      const middle = outcome.zones.find(zone => zone.key === 'midtone');
+      $('reference-result').textContent = '✓ ' + file.name + ' · 픽셀 오차 ' + outcome.improvement +
+        '% 감소 (' + outcome.sampledPixels.toLocaleString('ko-KR') + ' 표본) · 중간톤 ΔRGB ' +
+        middle.colorDelta.join(' / ') + '. 전역 색감 추정이며 세밀한 국소 보정은 수동으로 조정하세요.';
+      scheduleRender();
+      notify('✳  전후 이미지 분석으로 색감 필터를 만들었어요.');
+    } finally {
+      URL.revokeObjectURL(blobURL);
+      setWorking(false);
+    }
+  }
+
   async function openImage() {
     if (working) return;
     if (window.pixelRounded) {
@@ -270,6 +315,12 @@
       scheduleRender();
     });
     input.addEventListener('change', saveHistory);
+  });
+  $('reference-btn').addEventListener('click', () => { if (!working) $('reference-input').click(); });
+  $('reference-input').addEventListener('change', async event => {
+    try { if (event.target.files[0]) await matchReferencePhoto(event.target.files[0]); }
+    catch (error) { fail(error); }
+    finally { $('reference-input').value = ''; }
   });
   els.open.addEventListener('click', openImage);
   els.export.addEventListener('click', exportImage);
