@@ -23,7 +23,7 @@
   function optionsFor(values) {
     const options = {};
     for (const [key, value] of Object.entries(DEFAULTS)) {
-      const candidate = Number(values && values[key]);
+      const candidate = values && Object.prototype.hasOwnProperty.call(values, key) ? Number(values[key]) : NaN;
       options[key] = Number.isFinite(candidate) ? clamp(candidate, key === 'roundness' || key === 'grain' ||
         key === 'bloom' || key === 'fade' || key === 'vignette' || key === 'pixelate' ? 0 : -100, 100) : value;
     }
