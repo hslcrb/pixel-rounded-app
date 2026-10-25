@@ -38,27 +38,6 @@
     n ^= n >>> 16;
     return (n >>> 0) / 4294967295 - 0.5;
   }
-  function tonePixel(r, g, b, o) {
-    const exposure = Math.pow(2, o.exposure / 100);
-    r *= exposure; g *= exposure; b *= exposure;
-    const warm = o.temperature * 0.44;
-    r += warm; g += warm * 0.07; b -= warm;
-    const contrast = Math.max(0.05, 1 + o.contrast / 72);
-    r = (r - 127.5) * contrast + 127.5;
-    g = (g - 127.5) * contrast + 127.5;
-    b = (b - 127.5) * contrast + 127.5;
-    const lum = r * 0.2126 + g * 0.7152 + b * 0.0722;
-    const sat = Math.max(0, 1 + o.saturation / 100);
-    r = lum + (r - lum) * sat;
-    g = lum + (g - lum) * sat;
-    b = lum + (b - lum) * sat;
-    const fade = o.fade / 100;
-    return [
-      clamp(r * (1 - fade * 0.14) + fade * 36, 0, 255),
-      clamp(g * (1 - fade * 0.14) + fade * 31, 0, 255),
-      clamp(b * (1 - fade * 0.14) + fade * 32, 0, 255)
-    ];
-  }
   // Anti-aliased rounded cell mask; original alpha is never changed.
   function roundedMosaic(buffer, width, height, size, roundness) {
     const source = buffer.slice();
@@ -123,11 +102,29 @@
     const width = input.width, height = input.height, src = input.data;
     const o = optionsFor(settings);
     const data = new Uint8ClampedArray(src.length);
+    const exposureGain = Math.pow(2, o.exposure / 100);
+    const warm = o.temperature * 0.44;
+    const contrastGain = Math.max(0.05, 1 + o.contrast / 72);
+    const saturationGain = Math.max(0, 1 + o.saturation / 100);
+    const fade = o.fade / 100;
+    const fadeGain = 1 - fade * 0.14;
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const i = (y * width + x) * 4;
-        const [r, g, b] = tonePixel(src[i], src[i + 1], src[i + 2], o);
-        data[i] = r; data[i + 1] = g; data[i + 2] = b; data[i + 3] = src[i + 3];
+        let r = src[i] * exposureGain + warm;
+        let g = src[i + 1] * exposureGain + warm * 0.07;
+        let b = src[i + 2] * exposureGain - warm;
+        r = (r - 127.5) * contrastGain + 127.5;
+        g = (g - 127.5) * contrastGain + 127.5;
+        b = (b - 127.5) * contrastGain + 127.5;
+        const lum = r * 0.2126 + g * 0.7152 + b * 0.0722;
+        r = lum + (r - lum) * saturationGain;
+        g = lum + (g - lum) * saturationGain;
+        b = lum + (b - lum) * saturationGain;
+        data[i] = clamp(r * fadeGain + fade * 36, 0, 255);
+        data[i + 1] = clamp(g * fadeGain + fade * 31, 0, 255);
+        data[i + 2] = clamp(b * fadeGain + fade * 32, 0, 255);
+        data[i + 3] = src[i + 3];
       }
     }
     if (o.bloom > 0) applyBloom(data, width, height, o.bloom);
