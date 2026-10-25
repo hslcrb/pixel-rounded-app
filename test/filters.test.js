@@ -74,3 +74,9 @@ test('input validation and bounds', () => {
   assert.equal(optionsFor({ exposure: -999 }).exposure, -100);
   assert.ok(Object.keys(PRESETS).length >= 6);
 });
+
+test('missing option object preserves nonzero default roundness', () => {
+  assert.equal(optionsFor(null).roundness, 55);
+  assert.equal(optionsFor({}).roundness, 55);
+  assert.equal(optionsFor({ roundness: 0 }).roundness, 0);
+});
