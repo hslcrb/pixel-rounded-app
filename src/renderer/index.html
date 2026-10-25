@@ -9,6 +9,7 @@
   <link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
   <link rel="stylesheet" href="./style.css" />
   <script src="./filters.js" defer></script>
+  <script src="./matcher.js" defer></script>
   <script src="./renderer.js" defer></script>
 </head>
 <body>
@@ -90,6 +91,13 @@
         <div class="eyebrow">FINE-TUNE YOUR PHOTO</div>
         <h2>감각 조율하기<span class="star" aria-hidden="true">✳</span></h2>
         <p class="adjustments-sub">숫자 하나까지, 내 마음대로.</p>
+        <div class="reference-card">
+          <strong>✦ 전후 사진으로 필터 만들기</strong>
+          <p>원본과 같은 장면의 완성 사진을 불러오면, 픽셀 차이를 분석해 비슷한 색감의 필터를 찾아요.</p>
+          <button type="button" id="reference-btn">◐ 완성 사진 가져오기</button>
+          <input type="file" id="reference-input" accept="image/png,image/jpeg,image/webp" hidden />
+          <div id="reference-result" class="reference-result" aria-live="polite">참조 사진을 기다리는 중 ♡</div>
+        </div>
         <div class="section-heading with-reset"><h3>라이트 &amp; 컬러</h3><button type="button" id="reset-btn">↺ 초기화</button></div>
         <div class="sliders">
           <label class="slider-row"><span>노출 <output data-output="exposure">0</output></span><input data-setting="exposure" type="range" min="-100" max="100" value="0" /></label>
