@@ -106,6 +106,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, .preview-frame:
 .slider-row > span { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 650; margin-bottom: 12px; }
 .slider-row output { font-size: 11px; font-weight: 500; color: #d7bfff; background: #302b3e; border-radius: 6px; min-width: 36px; text-align: center; padding: 4px 6px; font-variant-numeric: tabular-nums; }
 .slider-row input { display: block; width: 100%; height: 6px; margin: 0; cursor: ew-resize; accent-color: var(--lav); }
+.slider-row input::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; border: 3px solid #272437; background: var(--peach); border-radius: 50%; width: 18px; height: 18px; box-shadow: 0 2px 7px rgba(0,0,0,.4); }
+.slider-row input::-moz-range-thumb { border: 3px solid #272437; background: var(--peach); border-radius: 50%; width: 13px; height: 13px; box-shadow: 0 2px 7px rgba(0,0,0,.4); }
 .pixel-heading { padding: 19px 0 5px; border-top: 1px solid var(--line); margin-top: 16px; }
 .mini-badge { font-size: 8px !important; letter-spacing: .5px; padding: 5px 7px; border-radius: 7px; color: #efc8b9 !important; background: #3a3040; }
 .tone-meter { margin-top: 25px; padding: 17px 14px; background: #242635; border: 1px solid var(--line); border-radius: 15px; }
