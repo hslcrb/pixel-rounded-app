@@ -1,0 +1,64 @@
+{
+  "name": "pixel-rounded",
+  "productName": "pixel-rounded",
+  "version": "0.1.0",
+  "description": "Local-first pixel-by-pixel photo lab",
+  "private": true,
+  "main": "src/main.js",
+  "author": "Rheehose",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "check": "node --check src/main.js && node --check src/preload.js && node --check src/renderer/filters.js && node --check src/renderer/renderer.js",
+    "dist:win": "electron-builder --win portable nsis --x64",
+    "dist:linux": "electron-builder --linux AppImage --x64"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "dev.rheehose.pixelrounded",
+    "productName": "pixel-rounded",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "LICENSE",
+      "README.md",
+      "!**/*.map"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "pixel-rounded-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Graphics",
+      "artifactName": "pixel-rounded-${version}-${arch}.${ext}"
+    }
+  }
+}
