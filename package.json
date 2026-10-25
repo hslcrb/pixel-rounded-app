@@ -9,10 +9,11 @@
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "start": "electron .",
-    "test": "node --test test/*.test.js",
-    "check": "node --check src/main.js && node --check src/preload.js && node --check src/renderer/filters.js && node --check src/renderer/renderer.js",
+    "test": "node --test",
+    "check": "node --check src/main.js && node --check src/preload.js && node --check src/renderer/filters.js && node --check src/renderer/matcher.js && node --check src/renderer/renderer.js",
     "dist:win": "electron-builder --win portable nsis --x64",
-    "dist:linux": "electron-builder --linux AppImage --x64"
+    "dist:linux": "electron-builder --linux AppImage --x64",
+    "verify": "npm run check && npm test"
   },
   "devDependencies": {
     "electron": "45.0.0",
