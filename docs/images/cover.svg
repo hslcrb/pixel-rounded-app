@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 320" role="img" aria-labelledby="title desc">
+<title id="title">pixel-rounded — Make every pixel feel.</title>
+<desc id="desc">Pixel-rounded brand banner with lavender and peach rounded pixels and a before-after color scene</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#242039"/><stop offset="1" stop-color="#10121b"/></linearGradient>
+<linearGradient id="photo" x2="1" y2="1"><stop stop-color="#b7d9e1"/><stop offset="1" stop-color="#6b8ba7"/></linearGradient>
+<linearGradient id="after" x2="1" y2="1"><stop stop-color="#d6b2e5"/><stop offset="1" stop-color="#bb8baf"/></linearGradient>
+<clipPath id="image"><rect x="710" y="45" width="286" height="230" rx="28"/></clipPath>
+</defs>
+<rect width="1040" height="320" rx="28" fill="url(#bg)"/>
+<circle cx="130" cy="-34" r="180" fill="#8163bb" opacity=".13"/>
+<circle cx="930" cy="340" r="280" fill="#e4b6ca" opacity=".09"/>
+<g transform="translate(64 68)">
+<rect width="37" height="37" rx="12" fill="#b9a2ff"/>
+<rect x="43" width="37" height="37" rx="12" fill="#ffd6c0"/>
+<rect y="43" width="37" height="37" rx="12" fill="#ffd6c0"/>
+<rect x="43" y="43" width="37" height="37" rx="12" fill="#b9a2ff"/>
+</g>
+<text x="177" y="117" font-family="Inter,Arial,sans-serif" font-size="47" font-weight="750" fill="#f6f2ff" letter-spacing="-2">pixel-rounded</text>
+<text x="69" y="202" font-family="Inter,Arial,sans-serif" font-size="28" font-weight="500" fill="#ffd6c0">Make every pixel feel.</text>
+<text x="69" y="239" font-family="Arial,sans-serif" font-size="16" fill="#a6a4bf">PHOTO LAB  /  LOCAL-FIRST  /  BEFORE &amp; AFTER</text>
+<g clip-path="url(#image)">
+<rect x="710" y="45" width="145" height="230" fill="url(#photo)"/>
+<rect x="855" y="45" width="145" height="230" fill="url(#after)"/>
+<circle cx="833" cy="109" r="30" fill="#fff1d4"/>
+<circle cx="926" cy="109" r="30" fill="#ffd6c0"/>
+<path d="M709 220 Q760 131 807 185 T856 198V275H709" fill="#668ba2"/>
+<path d="M855 220 Q905 131 952 185 T1000 198V275H855" fill="#75668f"/>
+<rect x="710" y="228" width="145" height="47" fill="#6095a2"/>
+<rect x="855" y="228" width="145" height="47" fill="#ab7a9f"/>
+<path d="M855 45v230" stroke="#fff" stroke-width="3"/>
+<circle cx="855" cy="169" r="21" fill="#f6f2ff"/>
+<path d="m846 169 7-6m-7 6 7 6m12-6-7-6m7 6-7 6" fill="none" stroke="#252039" stroke-width="2" stroke-linecap="round"/>
+</g>
+<text x="734" y="71" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#252039">BEFORE</text>
+<text x="923" y="71" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#252039">AFTER</text>
+</svg>

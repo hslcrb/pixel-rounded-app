@@ -1,0 +1,79 @@
+PIXEL-ROUNDED SOURCE AVAILABLE LICENSE
+Version 1.0 — 26 October 2026
+
+Copyright (c) 2026 Rheehose (GitHub: hslcrb). All rights reserved.
+
+IMPORTANT: This custom source-available license is NOT an Open Source
+Initiative-approved open-source license. Merely seeing source code does not
+give permission to redistribute or exploit the Software commercially.
+
+1. DEFINITIONS
+"Software" means the original pixel-rounded source code, documentation,
+and original visual assets in this repository, excluding separately
+licensed third-party components, reference media and user's own photos.
+"Licensor" means Rheehose (GitHub account hslcrb).
+"You" means any person or organization exercising these permissions.
+"Commercial Use" means sale, licensing, paid access, advertising-
+supported hosting, or other direct commercial exploitation of the Software
+or a substantially similar derivative.
+
+2. LIMITED RIGHTS
+Subject to all conditions of this license, the Licensor grants You
+a non-exclusive, worldwide, royalty-free right:
+(a) to view, study and privately evaluate the Software;
+(b) to run it for personal, educational, research and internal purposes;
+(c) to modify Your private copy for those purposes;
+(d) to maintain a GitHub fork solely to prepare, discuss or submit
+    contributions to the official pixel-rounded project, if copyright
+    and license notices remain intact.
+
+3. RESTRICTIONS
+Without separate prior written permission from the Licensor, You must NOT:
+(a) redistribute, republish, sublicense, sell, rent or commercially
+    provide the Software or modified versions;
+(b) make public stand-alone binaries or independently hosted derivative apps;
+(c) engage in Commercial Use;
+(d) remove or misrepresent copyright, licensing or attribution notices;
+(e) use "pixel-rounded" branding, marks or logos to imply official
+    origin, endorsement or affiliation;
+(f) knowingly incorporate material You are not authorized to license.
+Permission to fork under Section 2(d) is only for participating in
+the official project; it is not a general redistribution license.
+
+4. CONTRIBUTIONS
+Submitting an issue does not transfer copyright. By intentionally
+submitting copyrightable material in a pull request to the official
+repository, You represent that You have sufficient rights and grant the
+Licensor a perpetual, irrevocable, worldwide, non-exclusive,
+royalty-free license to reproduce, use, adapt, distribute and sublicense
+Your contribution within or alongside the Software and future editions,
+including commercial editions. You keep ownership of Your original work.
+
+5. USERS' IMAGES AND EXPORTS
+This license claims no ownership of user-supplied images or exports merely
+because they were edited by the Software. Users are responsible for
+respecting rights in the images they use.
+
+6. THIRD-PARTY MATERIAL
+Third-party dependency and media licenses continue to apply separately.
+This license does not cancel rights granted by their rights holders.
+
+7. TERMINATION
+Permissions under Section 2 end automatically upon material breach.
+The Licensor may reinstate permissions in writing. Restrictions,
+ownership provisions and disclaimers survive where legally applicable.
+
+8. DISCLAIMER
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, TO THE EXTENT ALLOWED BY APPLICABLE LAW. LIABILITY IS
+LIMITED TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
+
+9. RESERVATION OF RIGHTS
+Rights not expressly granted are reserved. No trademark or patent grant
+is implied. Mandatory rights provided by applicable law remain unaffected.
+
+10. ADDITIONAL PERMISSIONS
+Request separate commercial, redistribution or rebranding permissions
+through the official repository. Do not publish confidential information.
+
+END OF LICENSE

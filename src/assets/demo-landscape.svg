@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">pixel-rounded sample landscape</title>
+<desc id="desc">Self-authored mountain and lake illustration for offline filter demonstrations</desc>
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#85a5ca"/><stop offset="1" stop-color="#f8d4ba"/></linearGradient>
+<linearGradient id="lake" x2="0" y2="1"><stop stop-color="#709fb4"/><stop offset="1" stop-color="#294a6d"/></linearGradient>
+</defs>
+<rect width="1200" height="800" fill="url(#sky)"/>
+<circle cx="850" cy="222" r="104" fill="#fee3af" opacity=".8"/>
+<path d="M0 492 174 225 316 383 510 132 773 475 930 286 1200 478V800H0" fill="#839aaf"/>
+<path d="m0 536 207-218 230 216 226-276 203 272 158-142 176 138v274H0" fill="#5e788c"/>
+<path d="m480 183 30-51 83 111-60-29zM143 276l31-51 46 70-42-12z" fill="#e9ecea"/>
+<path d="M0 545c210 28 310-21 525-11s422 21 675-8v274H0z" fill="url(#lake)"/>
+<path d="M0 589q222 43 434 4t766-18v11q-274 25-552 13t-648 10z" fill="#a7c6ce" opacity=".65"/>
+<path d="M0 657q250 23 500-10t700 3v6q-238-2-485 19T0 667z" fill="#b0ced3" opacity=".37"/>
+<path d="M0 716q364 39 682-15t518-8v17q-225-27-515 17T0 725z" fill="#9bc5d2" opacity=".22"/>
+</svg>

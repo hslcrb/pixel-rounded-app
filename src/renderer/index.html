@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'" />
+  <meta name="theme-color" content="#11131b" />
+  <title>pixel-rounded · Photo Lab</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./filters.js" defer></script>
+  <script src="./matcher.js" defer></script>
+  <script src="./renderer.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand" aria-label="pixel-rounded">
+        <img class="brand-mark" alt="" src="../assets/logo.svg" />
+        <div><strong>pixel-rounded</strong><small>PHOTO LAB</small></div>
+      </div>
+      <span class="top-separator" aria-hidden="true"></span>
+      <span class="project-title" id="project-title">새로운 사진 프로젝트</span>
+      <div class="top-actions">
+        <button type="button" class="button button-subtle" id="open-btn" title="사진 열기 (Ctrl+O)">↗ <span>사진 열기</span></button>
+        <button type="button" class="button button-primary" id="export-btn" title="사진 내보내기 (Ctrl+S)">↧ <span>내보내기</span></button>
+        <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+      </div>
+    </header>
+    <main class="app-main">
+      <aside class="sidebar" aria-label="필터 프리셋">
+        <div class="aside-top">
+          <span class="eyebrow">YOUR CREATIVE LAB</span>
+          <h1>조금 더,<br /><em>아름답게.</em></h1>
+          <p>사진의 온도를 바꾸는 일.<br />그 시작은 한 픽셀부터.</p>
+        </div>
+        <div class="section-heading"><h2>필터 라이브러리</h2><span>07</span></div>
+        <div class="preset-list" id="preset-list" aria-label="필터 프리셋">
+          <button type="button" class="preset active" data-preset="natural" aria-pressed="true"><span class="swatch swatch-natural">◎</span><span><strong>원본 느낌</strong><small>Natural daylight</small></span><span class="preset-arrow">↗</span></button>
+          <button type="button" class="preset" data-preset="sunday" aria-pressed="false"><span class="swatch swatch-sunday">◐</span><span><strong>아날로그의 오후</strong><small>Analog Sunday</small></span><span class="preset-arrow">↗</span></button>
+          <button type="button" class="preset" data-preset="velvet" aria-pressed="false"><span class="swatch swatch-velvet">◕</span><span><strong>벨벳 필름</strong><small>Velvet Film</small></span><span class="preset-arrow">↗</span></button>
+          <button type="button" class="preset" data-preset="blossom" aria-pressed="false"><span class="swatch swatch-blossom">✷</span><span><strong>봄날의 빛</strong><small>Spring Bloom</small></span><span class="preset-arrow">↗</span></button>
+          <button type="button" class="preset" data-preset="monochrome" aria-pressed="false"><span class="swatch swatch-monochrome">◉</span><span><strong>모노 노트</strong><small>Mono Note</small></span><span class="preset-arrow">↗</span></button>
+          <button type="button" class="preset" data-preset="lavender" aria-pressed="false"><span class="swatch swatch-lavender">✿</span><span><strong>라벤더 아워</strong><small>Lavender Hour</small></span><span class="preset-arrow">↗</span></button>
+          <button type="button" class="preset" data-preset="rounded" aria-pressed="false"><span class="swatch swatch-rounded">▦</span><span><strong>둥근 픽셀</strong><small>Rounded Pixels</small></span><span class="preset-arrow">↗</span></button>
+        </div>
+        <div class="privacy-note">
+          <span class="privacy-icon">✳</span>
+          <div><strong>사진은 당신의 것.</strong><p>서버 업로드 없이 이 기기에서만 처리해요.</p></div>
+        </div>
+      </aside>
+      <section class="workspace" aria-label="사진 미리보기">
+        <div class="workspace-top">
+          <div><div class="eyebrow">STUDIO / 001</div><h2>A little magic, pixel by pixel.</h2><p>원본과 변화를 동시에, 원하는 만큼만.</p></div>
+          <div class="toolbar" role="group" aria-label="보기 도구">
+            <button type="button" id="zoom-out" aria-label="축소" title="축소">−</button>
+            <span id="zoom-label" aria-live="polite">맞춤</span>
+            <button type="button" id="zoom-in" aria-label="확대" title="확대">+</button>
+          </div>
+        </div>
+        <div class="stage" id="stage" aria-label="사진 전후 비교 영역">
+          <div class="preview-frame" id="preview-frame" aria-label="비교 핸들을 드래그하여 원본과 편집본 확인" tabindex="0">
+            <canvas id="before-canvas" aria-label="필터 적용 전"></canvas>
+            <canvas id="after-canvas" aria-label="필터 적용 후"></canvas>
+            <div class="pixel-grid" id="pixel-grid" aria-hidden="true"></div>
+            <span class="photo-tag before-tag">BEFORE</span>
+            <span class="photo-tag after-tag">AFTER</span>
+            <div class="compare-line" id="compare-line" aria-hidden="true"><span class="compare-handle">⇆</span></div>
+          </div>
+          <div class="drop-overlay" id="drop-overlay" aria-hidden="true"><strong>사진을 여기에 놓아주세요 ✳</strong><span>PNG · JPEG · WebP</span></div>
+        </div>
+        <div class="workspace-bottom">
+          <div class="view-actions" role="group" aria-label="보기 옵션">
+            <button type="button" id="compare-toggle" aria-pressed="true">◐ <span>전후 비교</span></button>
+            <button type="button" id="grid-toggle" aria-pressed="false">▦ <span>픽셀 격자</span></button>
+            <button type="button" id="fit-btn">⤢ <span>화면에 맞춤</span></button>
+          </div>
+          <div class="history-actions" role="group" aria-label="편집 기록">
+            <button type="button" id="undo-btn" title="실행 취소 (Ctrl+Z)" disabled>↶ <span>되돌리기</span></button>
+            <button type="button" id="redo-btn" title="다시 실행 (Ctrl+Shift+Z)" disabled>↷ <span>다시</span></button>
+          </div>
+        </div>
+        <div class="inspector-strip" aria-live="polite">
+          <span id="pixel-coordinate">X — &nbsp; Y —</span>
+          <span class="color-dot" id="pixel-color" aria-hidden="true"></span>
+          <span id="pixel-hex">#———</span>
+          <span id="pixel-type">마우스를 사진 위에 놓으면 픽셀을 분석해요.</span>
+        </div>
+      </section>
+      <aside class="adjustments" aria-label="필터 상세 조절">
+        <div class="eyebrow">FINE-TUNE YOUR PHOTO</div>
+        <h2>감각 조율하기<span class="star" aria-hidden="true">✳</span></h2>
+        <p class="adjustments-sub">숫자 하나까지, 내 마음대로.</p>
+        <div class="reference-card">
+          <strong>✦ 전후 사진으로 필터 만들기</strong>
+          <p>원본과 같은 장면의 완성 사진을 불러오면, 픽셀 차이를 분석해 비슷한 색감의 필터를 찾아요.</p>
+          <button type="button" id="reference-btn">◐ 완성 사진 가져오기</button>
+          <input type="file" id="reference-input" accept="image/png,image/jpeg,image/webp" hidden />
+          <div id="reference-result" class="reference-result" aria-live="polite">참조 사진을 기다리는 중 ♡</div>
+        </div>
+        <div class="section-heading with-reset"><h3>라이트 &amp; 컬러</h3><button type="button" id="reset-btn">↺ 초기화</button></div>
+        <div class="sliders">
+          <label class="slider-row"><span>노출 <output data-output="exposure">0</output></span><input data-setting="exposure" type="range" min="-100" max="100" value="0" /></label>
+          <label class="slider-row"><span>대비 <output data-output="contrast">0</output></span><input data-setting="contrast" type="range" min="-100" max="100" value="0" /></label>
+          <label class="slider-row"><span>채도 <output data-output="saturation">0</output></span><input data-setting="saturation" type="range" min="-100" max="100" value="0" /></label>
+          <label class="slider-row"><span>색온도 <output data-output="temperature">0</output></span><input data-setting="temperature" type="range" min="-100" max="100" value="0" /></label>
+          <label class="slider-row"><span>필름 입자 <output data-output="grain">0</output></span><input data-setting="grain" type="range" min="0" max="100" value="0" /></label>
+          <label class="slider-row"><span>빛 번짐 (Bloom) <output data-output="bloom">0</output></span><input data-setting="bloom" type="range" min="0" max="100" value="0" /></label>
+          <label class="slider-row"><span>바랜 필름 (Fade) <output data-output="fade">0</output></span><input data-setting="fade" type="range" min="0" max="100" value="0" /></label>
+          <label class="slider-row"><span>비네팅 <output data-output="vignette">0</output></span><input data-setting="vignette" type="range" min="0" max="100" value="0" /></label>
+        </div>
+        <div class="section-heading pixel-heading"><h3>픽셀 아틀리에</h3><span class="mini-badge">EXPERIMENTAL</span></div>
+        <div class="sliders">
+          <label class="slider-row"><span>픽셀 크기 <output data-output="pixelate">0</output></span><input data-setting="pixelate" type="range" min="0" max="100" value="0" /></label>
+          <label class="slider-row"><span>모서리 곡률 <output data-output="roundness">55</output></span><input data-setting="roundness" type="range" min="0" max="100" value="55" /></label>
+        </div>
+        <div class="tone-meter" aria-label="픽셀 밝기 분포">
+          <div class="meter-heading"><strong>픽셀 톤 분석</strong><small id="pixel-count">샘플 대기 중</small></div>
+          <div class="meter-track" aria-hidden="true"><span id="tone-shadow"></span><span id="tone-mid"></span><span id="tone-high"></span></div>
+          <div class="tone-labels"><span>그림자</span><span>중간톤</span><span>하이라이트</span></div>
+        </div>
+        <div class="export-setting"><label for="format-select">저장 포맷</label><select id="format-select"><option value="png">PNG · 무손실</option><option value="jpeg">JPG · 92% 품질</option></select></div>
+      </aside>
+    </main>
+    <footer class="status-bar">
+      <div><span class="status-led"></span><span id="status-text" role="status" aria-live="polite">샘플 이미지를 불러오는 중...</span></div>
+      <div id="dimension-text">LOCAL-FIRST · NO UPLOAD</div>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="alert" hidden></div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+<title id="title">pixel-rounded</title>
+<rect width="128" height="128" rx="30" fill="#252039"/>
+<rect x="28" y="28" width="34" height="34" rx="11" fill="#B9A2FF"/>
+<rect x="66" y="28" width="34" height="34" rx="11" fill="#FFD6C0"/>
+<rect x="28" y="66" width="34" height="34" rx="11" fill="#FFD6C0"/>
+<rect x="66" y="66" width="34" height="34" rx="11" fill="#B9A2FF"/>
+</svg>
