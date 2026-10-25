@@ -98,7 +98,7 @@ flowchart LR
 
 소스 열람, 개인 학습·사용, 비공개 수정, 공식 프로젝트 기여를 허용하지만 일반적인 무단 재배포·파생 앱 판매·상업적 이용을 제한합니다. 권리 보호와 공식 협업 참여를 함께 제공하기 위해 선택한 모델이며, '오픈소스'와 혼동하면 안 됩니다.
 
-[LICENSE](LICENSE) · [라이선스 안내](docs/LICENSE_GUIDE.md) · [IP 정책](docs/BRAND.md) · [CONTRIBUTING](CONTRIBUTING.md) · [AGENTS.md](AGENTS.md) · [보안](SECURITY.md)
+[LICENSE](LICENSE) · [라이선스 안내](docs/LICENSE_GUIDE.md) · [IP 정책](docs/IP_POLICY.md) · [CONTRIBUTING](CONTRIBUTING.md) · [AGENTS.md](AGENTS.md) · [보안](SECURITY.md)
 
 ## 프로젝트 안내서
 
